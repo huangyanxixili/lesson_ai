@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function foo() {
+            console.log(this)// window
+        }
+        // 普通函数运行时指向window 等同于window.foo()
+        // foo() 是申明在全局作用域的变量环境中，挂载在window对象上（污染了window对象）
+        foo() 
+
+        let bar = {
+            myName: "极客邦",
+            test1: 1
+        }
+
+        function foo() {
+            this.myName = "极客时间";
+        }
+        // .call()函数 将 this 指定为 bar
+        // foo.call(bar)
+        // 和 call 一样
+        foo.apply(bar);
+        console.log(bar);
+
+        var myObj = {
+            name: "极客时间",
+            showThis: function() {
+                console.log(this);
+            }
+        }
+        myObj.showThis();
+    </script>
+</body>
+</html>

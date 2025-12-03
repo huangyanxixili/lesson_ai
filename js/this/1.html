@@ -1,0 +1,49 @@
+<script>
+// 严格模式
+// 'use strict'
+
+// bar是一个对象，定义在全局作用域
+// 堆内存 在变量环境的栈内存中只是对象在堆内存中的地址
+var bar = {
+    myName: "time.geekbang.com",
+    // 在全局作用域中 对象里面声明的函数 也是在全局内定义的
+    printName: function() {
+        // 在函数执行时，会从词法环境里找到 myName 变量，但是内部没有
+        // 会沿着作用域链向上查找，直到找到全局作用域里的 myName 变量
+        console.log(myName);
+
+        // 变量查找的规则：(就近原则)
+        // 先查找函数内部的变量 再沿着作用域链向上查找
+        // outer指针（指向外面一层作用域的引用）具有词法属性，也就是写好这个代码就决定了outer的指向什么作用域
+        // 例如：printName 的 outer 指针 → 全局
+        //      假如foo内有一个函数，那么这个函数的 outer 指针 → foo的词法环境
+
+        // 自由变量：
+        // 在函数内部使用，但不是函数的参数，也不是局部的变量
+        // 而是来自外层作用域的变量（例如：myName）
+
+        console.log(bar.myName);
+        // this
+        console.log(this.myName);
+        console.log(this); // window 对象（前端全局对象）
+    }
+}
+
+function foo() {
+    let myName = '极客时间'
+    // 这里只是调用 bar.printName 函数，并没有对bar对象内的属性进行修改
+    // myName仍然是全局作用域中的 '极客邦'
+    return bar.printName
+}
+
+let myName = '极客邦'
+
+// 全局块级作用域里词法环境里的变量
+// 指向 printName 函数的引用
+let _printName = foo();
+
+// 普通函数来运行（没有调用对象就是普通函数），this 指向全局对象
+_printName();
+// 作为对象的方法被调用，this 指向对象
+bar.printName();
+</script>
