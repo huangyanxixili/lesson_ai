@@ -8,27 +8,16 @@
 <body>
     <script>
         function CreateObj() {
-            // var temObj = {}
-            // CreateObj.call(temObj)
-            // temObj.__proto__ = CreateObj.prototype
-            // return temObj
+            // new CreateObj()内部使用步骤：
+            // 1. var temObj = {}
+            // 2. CreateObj.call(temObj) 将this强制指向temObj
+            // 3. temObj.__proto__ = CreateObj.prototype  将新对象的原型链，连接到构造函数的 prototype 上
+            // 4. return temObj  返还创建的新对象
             console.log(this)
             this.name = "极客时间"
         }
+        // 如果这里没有使用 new，那么 this 就会默认指向全局定义域中的 window
         var myObj = new CreateObj();
-        
-
-        // var temObj = {}
-        // 模拟：new 先创建一个空对象，这里叫 temObj。
-        // // CreateObj.call(temObj)
-        // 模拟：然后用这个空对象当作 this，去执行构造函数：
-        // 等价于在里面执行：CreateObj 函数体，但此时 this === temObj，
-        // 所以构造函数里写的 this.name = "极客时间"，其实就是给 temObj 加属性。
-        // // temObj.__proto__ = CreateObj.prototype
-        // 模拟：把这个新对象的原型，链接到构造函数的 prototype 上，
-        // 这样以后 myObj 就可以通过原型链访问 CreateObj.prototype 上的方法和属性。
-        // // return temObj
-        // 模拟：构造函数如果不用 return 返回别的对象，new 会自动返回这个新建的对象。
     </script>
 </body>
 </html>
