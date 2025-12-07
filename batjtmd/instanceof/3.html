@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // right 是否出现在 left 的原型链上
+        function isInstanceOf(left, right) {
+            let proto = left.__proto__;
+            // 循环查找原型链
+            while (proto) {
+                if (proto === right.prototype) {
+                    return true;
+                }
+                proto = proto.__proto__; // null 结束循环
+            }
+            return false;
+        }
+
+        function Animal() {}
+
+        function Cat() {}
+        Cat.prototype = new Animal();
+        function Dog() {}
+        Dog.prototype = new Animal();
+        // new Animal() 的内部过程（伪代码）：
+        // 1. var obj = {}  // 创建一个空对象
+        // 2. Animal.call(obj)  // 将 Animal 的 this 绑定到 obj，执行构造函数
+        // 3. obj.__proto__ = Animal.prototype  // 设置原型链
+        // 4. return obj  // 返回这个对象
+        // 5. Dog.prototype = obj
+        // 
+        // 所以 Dog.prototype.construstor =  Animal
+        // 这样 Dog 的实例就可以通过原型链访问 Animal 的方法和属性 
+        const dog = new Dog()
+        console.log(isInstanceOf(dog, Dog));
+        console.log(isInstanceOf(dog, Animal));
+        console.log(isInstanceOf(dog, Object));
+        console.log(isInstanceOf(dog, Cat));
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<script>
+    const arr = []; // new Array()
+    console.log(
+        arr.__proto__,  // Array.prototype
+        arr.__proto__.constructor,  // Array
+        arr.constructor // Array
+    );
+    console.log(
+        arr.__proto__.__proto__, // Object.prototype
+        arr.__proto__.__proto__.constructor, // Object
+        arr.__proto__.__proto__.__proto__ // null
+    );
+    // 原型链关系：
+    // arr -> Array.prototype -> Object.prototype -> null
+    // 
+    // __proto__: 指向原型对象（上一位的 .prototype），用于属性查找
+    // constructor: 指向构造函数本身，用于标识对象的创建者 
+    // prototype： 构造函数的属性，指向原型对象
+</script>
