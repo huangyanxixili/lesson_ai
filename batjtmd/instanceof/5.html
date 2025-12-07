@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prototype模式</title>
+</head>
+<body>
+    <script>
+        function Animal() {
+            this.species = '动物'; // 浪费内存
+        }
+        function Cat(name, color) {
+            // 拿到父类的属性
+            Animal.apply(this)
+            this.name = name;
+            this.color = color;
+        }
+        // 覆盖
+        // prototype原型对象由 consturctor 和 其他属性方法组成
+        // 这步将 Cat.prototype.__proto__ = Animal.prototype（多看伪代码）
+        Cat.prototype = new Animal();
+        // 同时将 Cat.prototype指向的原型对象 变成了 Animal实例，而实例上没有constructor属性
+        // 就会通过__proto__原型链向上查找到 Animal.prototype，也就变成了 Cat.prototype.constructor = Animal
+        // 但是 Cat.prototype.constructor 应当是 Cat
+        // 所以需要手动维护
+        Cat.prototype.constructor = Cat;
+        
+        const cat = new Cat('小黑', '黑色');
+        console.log(cat.species);
+        console.log(
+            cat.__proto__.constructor,
+            Cat.prototype.constructor
+        );
+    </script>
+</body>
+</html>

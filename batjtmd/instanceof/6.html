@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>直接继承prototype</title>
+</head>
+<body>
+    <script>
+        function Animal() {
+
+        }
+        Animal.prototype.species = '动物'; // 优化性能
+        function Cat(name, color) {
+            Animal.call(this);
+            this.name = name;
+            this.color = color;
+        }
+        // 原来默认是 constructor 是 Cat
+        // 现在被覆盖为 Animal
+        Cat.prototype = Animal.prototype; // 副作用
+        // 基本类型（数字、字符串等）是值赋值，互不影响
+        // 对象类型是引用式赋值，会同时指向一个对象，修改相互影响
+
+        // 手动维护
+        Cat.prototype.constructor = Cat;
+
+        Cat.prototype.sayHello = function() {
+            console.log('hello');
+        }
+        // 导致修改 Cat.prototype 的任何属性都会影响 Animal.prototype
+
+        var cat = new Cat('小黑', '黑色');
+        console.log(cat.species);
+        console.log(Animal.prototype.constructor)
+    </script>
+</body>
+</html>

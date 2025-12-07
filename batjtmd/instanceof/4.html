@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    <script>
+        // 继承的类只有构造函数，没有原型对象
+        function Animal() {
+            this.species = '动物';
+        }
+        function Cat(name, color) {
+            // 拿到父类的属性
+            Animal.apply(this)
+            this.name = name;
+            this.color = color;
+        }
+        const cat = new Cat('小黑', '黑色');
+        // 执行 new Cat()时，创建一个空对象 catInstance = {}
+        // 并且执行 Cat.call(catInstance) 也就是 this -> catInstance（伪代码）
+        // 而 Animal.apply(this)里的 this -> catInstance
+        // 也就是调用 Animal 函数，将 Animal 函数内部的 this 绑定为 Cat 构造函数的 this
+        // 即： this(Animal) = this(catInstance)
+        // 也就相当于 Animal 函数中的 this.species = catInstance.species = '动物'
+        console.log(cat.species);
+    </script>
+</body>
+</html>
