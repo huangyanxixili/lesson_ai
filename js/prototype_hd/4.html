@@ -19,8 +19,17 @@
             this.color = color;
         }
 
-        Cat.prototype = new Animal();
-        Cat.prototype.constructor = Cat; // 修复构造函数指向
+        function extend(Parent, Child) {
+            // 中介函数
+            var F = function() {}; // 函数表达式（有内存开销，但是因为是空函数问题不大）
+            // 指向父类原型
+            F.prototype = Parent.prototype;
+            // 指向空对象实例
+            Child.prototype = new F(); // 实例的修改不会影响原型对象
+            // 修复构造函数指向
+            Child.prototype.constructor = Child; 
+        }
+        extend(Animal, Cat);
 
         Cat.prototype.eat = function() {
             console.log("正在吃");
@@ -28,6 +37,7 @@
         const cat = new Cat("黄色", "加菲猫", 2);
         console.log(cat.species);
         cat.eat();
+
     </script>
 </body>
 </html>

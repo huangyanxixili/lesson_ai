@@ -25,7 +25,7 @@ AI First（Agent）
     就像移动端的 应用市场 -> 阿里云的 大模型市场
 - 数据集
     微调大模型
-- python notebook
+- python notebook（基于sqlist3 -> text2sql）
 
 ```python
 # 1、创建标准化表的数据表，通过PRAGMA table_info() 自动提取schema（表结构）

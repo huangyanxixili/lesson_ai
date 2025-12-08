@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    <script>
+        // 父类构造函数
+        function Animal(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Animal.prototype.species = "动物";
+        function Cat(color, name, age) {
+            // 构造函数式继承
+            // 用call手动指定
+            // Animal.call(this, name, age);
+            Animal.apply(this, [name, age]); //数组传参
+            console.log(this, "//////");
+        }
+        // 原型链式继承
+        // Cat.prototype = new Animal(); 
+        // Cat.prototype.constructor = Cat; // 修复构造函数指向
+        
+        // 直接指向（引用式赋值副作用）
+        Cat.prototype = Animal.prototype; // 指向父类原型
+        Cat.prototype.constructor = Cat; // 修复构造函数指向
+
+        const cat = new Cat("加菲猫", 2, "黄色");
+    </script>
+</body>
+</html>

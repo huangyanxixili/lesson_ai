@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用空对象中介模式</title>
+</head>
+<body>
+    <script>
+        function Animal(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Animal.prototype.species = "动物";
+
+        function Cat(color, name, age) {
+            Animal.apply(this, [name, age]);
+            console.log(this, "//////");
+        }
+
+        // 空对象中介模式
+        var F = function() {}; // 空对象中介
+        F.prototype = Animal.prototype; // 不对F进行修改，就不会因为引用式赋值导致改变父类构造函数
+        Cat.prototype = new F(); // 指向空对象
+        Cat.prototype.constructor = Cat; // 修复构造函数指向
+        // 由于空对象的存在，使得 Cat.prototype.__proto__ = Animal.prototype
+        // 修改 Cat.prototype 不会对 Animal.prototype 产生影响
+
+        console.log(Animal.prototype.constructor);
+        console.log(f.constructor);
+        console.log(Cat.__proto__.__proto__);
+
+        // 传递两个构造函数
+        // extend 继承
+        function extend(Child, Parent) {
+            // 引入一个空对象，由 Function 来实例化（没必要用Object）
+            // 原型链的概念
+            // 目的地是 Parent.prototype
+            // 用空对象指向 F.prototype = Parent.prototype;
+            // 来源是 Child.prototype
+            // 修改 Child.prototype.constructor = Child;
+            // 只会修改 f
+            // f.__proto__ = Parent.prototype 保护起来
+            var F = new function() {};
+        }
+    </script>
+</body>
+</html>
