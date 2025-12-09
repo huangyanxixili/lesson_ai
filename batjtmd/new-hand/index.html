@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // 模拟 es6 的 new 的功能
+        function objectFactory1(Construstor, ...args) { // `...`reset运算符
+            // var obj = {};
+            var obj = new Object(); // 从空对象开始
+            Construstor.apply(obj, args); // 绑定 this 并执行构造函数
+            obj.__proto__ = Construstor.prototype; // 设置原型链
+            return obj;
+        }
+
+        // es5 写法
+        function objectFactory() {
+            var obj = new Object(); // 从空对象开始
+            // // 函数在运行时的对象
+            // console.log(arguments, arguments[0]);
+
+            // // Arguments 和 Array 
+            // console.log(Object.prototype.toString.call(arguments));
+            // console.log(Object.prototype.toString.call([1, 2, 3]));
+
+            // 拿出 arguments 中第一个参数 也就是构造函数
+            // 同时 将构造函数从 arguments 中删除，让其中只包含参数
+            var Construstor = [].shift.call(arguments);
+            // console.log(
+            //     Construstor, 
+            //     arguments,
+            //     Object.prototype.toString.call(arguments)
+            // );
+
+            // 让 apply 改变 this 的指向，并且 [...arguments]让 arguments 转换为数组
+            // Construstor.apply(obj, [...arguments]);
+
+            // apply 数组、类数组都能接收，内部会自动帮我们转换
+            Construstor.apply(obj, arguments);
+
+            obj.__proto__ = Construstor.prototype;
+            return obj;
+        }
+
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.species = '人类';
+        Person.prototype.sayHello = function() {
+            console.log(`你好，我是${this.name} `);
+        };
+        let p = new Person('张三', '18');
+        let zzp = objectFactory(Person, '张三', '18');
+
+        console.log(zzp, zzp.species);
+    </script>
+</body>
+</html>
