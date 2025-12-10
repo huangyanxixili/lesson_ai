@@ -10,7 +10,7 @@
    - arr -> Array.prototype -> Object.prototype -> null
         `__proto__`: 指向原型对象（上一位的 .prototype），用于属性查找
         `constructor`: 指向构造函数本身，用于标识对象的创建者
-        `prototype`： 构造函数的属性，指向原型对象（内置构造函数的 prototype 上通常有默认方法）
+        `prototype`： 函数的属性，指向原型对象（内置构造函数的 prototype 上通常有默认方法）
             子.__proto__ === 父.prototype
             父.prototype.constructor === 父
             子.__proto__.constructor === 父（通过原型链访问）

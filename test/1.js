@@ -1,10 +1,12 @@
-function Person(name) {
-  this.name = name;
-  this.sayHello = function() {
-      console.log("你好");
-  };
+// right 是否出现在 left 的原型链上
+function isInstanceOf(left, right) {
+    let proto = left.__proto__;
+    // 循环查找原型链
+    while (proto) {
+        if (proto === right.prototype) {
+            return true;
+        }
+        proto = proto.__proto__; // null 结束循环
+    }
+    return false;
 }
-
-const p = new Person("Alice");
-console.log(p.hasOwnProperty('sayHello'));  // true - 是 p 自己的属性
-console.log(Person.prototype.sayHello);   // undefined - prototype 上没有
