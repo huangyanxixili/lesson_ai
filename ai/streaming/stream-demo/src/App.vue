@@ -30,7 +30,7 @@ import { ref } from 'vue';
 // }, 1000);
 
 // v-model 双向绑定指令，响应式绑定表单的数据
-const question = ref('讲一个喜羊羊和灰太狼的故事');
+const question = ref('讲一个喜羊羊和灰太狼的故事，不低于2000字');
 const stream = ref(true);
 const content = ref(''); // 单项绑定（主要）
 
@@ -51,6 +51,68 @@ const askLLM = async () => {
   const headers = {
     'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
     'Content-Type': 'application/json'
+  }
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      model: 'deepseek-chat',
+      stream: stream.value,
+      messages: [
+        {
+          role: 'user',
+          content: question.value
+        }
+      ]
+    })
+  })
+
+  if (stream.value) {
+    // 流式输出
+    content.value = ""; // 把上次的生成清空
+    // html5 流式响应体
+    // 响应体的读对象
+    const reader = response.body?.getReader();
+    // 流出来的是二进制流 buffer 
+    const decoder = new TextDecoder();
+    let done = false; // 流是否结束，默认没有
+    let buffer = ''; 
+    while(!done) { // 只要没有完成就一直拼接buffer
+      // 解构的同时 重命名
+      const { value, done: doneReading} = await reader?.read()
+      console.log(value, doneReading);
+      done = doneReading;
+      // chunk 内容块 包含多行data：但有多少行不知道
+      // data：{} 能不能传完也不知道
+      const chunkValue = buffer + decoder.decode(value);
+      console.log(chunkValue)
+      buffer = '';  
+      const lines = chunkValue.split('\n')
+        .filter(line => line.startsWith('data: '));
+      for (const line of lines) {
+        const incoming = line.slice(6);// 干掉数据标志
+        if (incoming === '[DONE]') {
+          done = true;
+          break;
+        }
+        try {
+          // llm 流式生成，按 tokens 长度不定
+          const data = JSON.parse(incoming);
+          const delta = data.choices[0].delta.content;
+          if(delta) {
+            content.value += delta;
+          }
+        } catch(err) {
+          // JSON.parse 解析失败
+          buffer += `data: ${incoming}`
+        }
+      }
+    }
+    
+  } else {
+    const data = await response.json();
+    console.log(data);
+    content.value = data.choices[0].message.content;
   }
 };
 
