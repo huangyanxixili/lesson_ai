@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function foo() {
+            var a = "张三";
+            var b = a;
+            var c = {name: "李四"}; // 栈内存中是引用地址，堆内存中是对象
+            var d = c;
+            // 1. 在创建阶段：先进行var声明变量提升初始化为undefined，创建foo执行上下文的词法环境、作用域链和this绑定
+            // 2. 在执行阶段：
+            //    调用foo时，创建foo函数执行上下文并入栈到调用栈为栈顶
+            //    在栈内存中创建a、b、c、d的空间
+            //    对象字面量{name: "李四"}储存在堆内存上，并将其引用地址赋予c和d
+            //    a和b都是赋值“张三”到栈内存中
+            //    并且在执行完之后在调用栈中将 foo执行上下文释放并指向全局执行上下文
+        }
+        foo();
+        function bar() {} 
+        // 若函数中创建大量对象且未及时释放，可能导致性能问题
+    </script>
+</body>
+</html>

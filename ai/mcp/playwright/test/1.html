@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP + Playwright Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f5f9;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            color: #1e80ff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #e1e4e8;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+        }
+        input:focus {
+            border-color: #1e80ff;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e80ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0060df;
+        }
+        #result-area {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            min-height: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>MCP 测试页面</h1>
+        
+        <!-- 测试输入框 -->
+        <input type="text" id="input-box" placeholder="输入一些文字..." autocomplete="off">
+        
+        <!-- 测试按钮 -->
+        <button id="action-btn">点击运行</button>
+        
+        <!-- 结果反馈区 -->
+        <div id="result-area">等待操作...</div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('action-btn');
+        const input = document.getElementById('input-box');
+        const result = document.getElementById('result-area');
+
+        btn.addEventListener('click', () => {
+            const text = input.value;
+            if (text) {
+                result.textContent = `已接收输入: ${text}`;
+                result.style.color = '#00a854'; // Green for success
+            } else {
+                result.textContent = '按钮已点击 (空输入)';
+                result.style.color = '#ff9c6e'; // Orange for warning
+            }
+        });
+    </script>
+</body>
+</html>
