@@ -1,0 +1,29 @@
+<script>
+// 'use strict';
+
+var name = "windowName"; // 全局变量
+var a = {
+    name: "Cherry",
+    func1: function() { // 这个function和a对象的存放在堆内存的位置不同，这里的func1是保存这个函数的引用地址
+        console.log(this.name);
+    },
+    func2: function() {
+        // this 指向 a 对象
+        console.log(this);
+        var that = this; // 保存this
+        // call apply 可以指定this 的指向，并且立即运行（在计时器函数中使用会直接执行而非等待时间后才允许）
+        // bind 也可以指定this 的指向，但是不会立即运行，需要手动调用
+        setTimeout(function() {
+            console.log(this);
+            that.func1();
+        }, 1000);
+    }
+}
+// 谁调用方法，this 就指向谁
+// 对象方法调用的（普通函数调用就是 -> window）
+a.func2();
+// 定时器中的函数调用，到达时间之后就相当于普通函数调用，this 指向 window
+// 通过 .call(a) 可以改变 this 指向
+
+
+</script>
