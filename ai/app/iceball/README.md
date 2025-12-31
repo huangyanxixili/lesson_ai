@@ -15,3 +15,14 @@
       ref -> imgPreview
       filereader readAsDataURL onload 读取完了，赋值给 imgPreview
       google 推出了base64 编码，可以将图片转换为字符串
+
+## AI 应用业务开发
+- 数据状态业务 imgUrl
+- coze 工作流调用 -> 看官方文档
+- http post 请求业务
+   - FormData 
+   - fetch 发送请求
+     headers Authorization Bearer
+     body formData.append('file')
+   - code 0 成功 否则 ret.msg 错误消息
+   - data 响应式数据 id   
