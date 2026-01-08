@@ -83,7 +83,7 @@ const patToken = import.meta.env.VITE_PAT_TOKEN;
 const uploadUrl = 'https://api.coze.cn/v1/files/upload';
 const workflowUrl = 'https://api.coze.cn/v1/workflow/run';
 const workflow_id = '7586933897834446874';
-console.log(patToken)
+// console.log(patToken)
 
 // --------------- 生成图片模块 -------------------
 const generate = async () => {
