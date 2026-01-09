@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  useEffect,
+} from 'react';
+import { useGitDiff } from './hooks/useGitDiff.js';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  // useEffect(() => {
+  //   // fetch('http://localhost:3000/chat', {
+  //   //   method: 'POST',
+  //   //   headers: {
+  //   //     'Content-Type': 'application/json',
+  //   //   },
+  //   //   body: JSON.stringify({
+  //   //     message: '你好',
+  //   //   })
+  //   // })
+  //   // .then(res => res.json())
+  //   // .then(data => {
+  //   //   console.log(data);
+  //   // })
+
+  //   // 调用api模块中的chat函数
+    
+  //   (async () => {
+  //     const res = await chat('你好');
+  //     console.log(res.data);
+  //   })()
+  // }, [])
+
+  const [loading, content] = useGitDiff();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="flex">
+      {loading ? '加载中...' : content}
+    </div>
   )
 }
 
-export default App

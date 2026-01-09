@@ -12,16 +12,15 @@
   - 后端 node express 
 
 - 前后端分离
-  - server  
+  - server（nodemon index.js）
     - 运行在服务器
     - 提供api 接口，在 3000端口 伺服   
     http://localhost:3000
-  - frontend
+  - frontend（npm run dev）
      在用户的浏览器上运行（v8引擎、js运行的宿主）
      http://localhost:5173   Web
-  - AI 
+  - AI （ollama run deepseek-r1:8b）
     - ollama 部署开源大模型 deepseek-r1:8b GPU（reasoning1）
-        运行 ollama run deepseek-r1:8b
     - 像openai 一样的api 接口 :11434
 
 ## express
@@ -59,3 +58,21 @@
        - 404 Not Found 资源不存在 
        - 401 Unauthorized 未授权
        - 500 Internal Server Error 服务器错误（后端问题）
+
+## 跨域
+有风险
+- 从国内去缅甸 --> 跨域了
+  www.baidu.com（要负责用户的安全） 向 www.dy.com 发送请求 --> 跨域了
+  http:// 协议  www.baidu.com 域名   :3000 端口
+  前端 5173端口    后端 3000端口
+  - 同源策略CORS（Cross Origin Resource Share）  跨域就会 直接放弃请求（认为不安全）
+  - 端口不一样 也会跨域 非常严格
+    协议、域名、端口 一样，缺一不可
+    浏览器会将跨域请求阻止
+  - 解决跨域 日常问题  
+
+  - 前端发起跨域接口请求（端口port），需要数据
+  - 浏览器 用户只是小白 访问www.baidu.com 同源策略（block阻止对其他页面请求）
+  - 后端 默认没有开启跨域的允许
+    如果允许 就像给你出国办理了一个签证，浏览器就会放行 
+    .use(cors()) 
