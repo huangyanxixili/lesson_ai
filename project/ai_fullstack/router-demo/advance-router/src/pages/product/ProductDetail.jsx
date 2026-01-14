@@ -4,7 +4,7 @@ import {
 
 export default function ProductDetail() {
     const { productId } = useParams();
-    console.log(productId)
+    // console.log(productId)
     return (
         <div>
             <h1>ProductDetail {productId}</h1>

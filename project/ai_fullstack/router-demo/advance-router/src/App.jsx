@@ -1,5 +1,4 @@
 import {
-  Link,
   BrowserRouter as Router, // html5 history
   // HashRouter, // hash history
 } from 'react-router-dom'

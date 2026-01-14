@@ -65,3 +65,19 @@
    前端路由
    路由改变后
    前端会收到一个事件，将匹配的新路由显示在页面上
+
+## typescript
+JavaScript 超级版 --> TypeScript，让 JS 变成强类型静态语言
+- 安装 ts 
+    npm install -g typescript
+- ts 的优点
+   - 静态类型 
+   - 边写边检测bug
+   - 编译时检查类型错误
+   - 代码建议，文档查看都非常方便
+   - 没有使用变量等垃圾代码提示未使用  
+        1. `console.log()`
+        2. 重构、修改别人的代码
+     这样就可以拿到 干净的代码
+
+### typescript 实战 todos
