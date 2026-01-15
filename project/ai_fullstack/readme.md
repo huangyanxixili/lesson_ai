@@ -81,3 +81,11 @@ JavaScript 超级版 --> TypeScript，让 JS 变成强类型静态语言
      这样就可以拿到 干净的代码
 
 ### typescript 实战 todos
+
+
+### zustand 状态管理
+如果说国家需要有中央银行，那么前端项目就需要中央状态管理系统 zustand / redux
+- 组件 = UI + State 
+- store 将状态存放到store仓库中管理
+    全局共享
+- 基于hooks思想实现
