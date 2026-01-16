@@ -270,4 +270,32 @@ CREATE TABLE posts (
 CREATE INDEX idx_posts_user_id ON posts(user_id);
 ```
 
+## nestjs
+### express 极简框架
+nestjs 企业级开发框架，基于typescript，采用**模块化架构**和依赖注入，旨在构建高效、可扩展且易于维护的企业级后端应用
+
+- npm i -g @nestjs/cli
+  创建后端项目 nest new 项目名
+
+### nestjs 理解
+- 工厂模式 
+- main.ts 入口文件
+- Module
+  app.module.ts 
+
+### http 请求动作
+**语义化** **restful 一切皆资源**
+Method + URL 定义方式
+1. GET --- 获取（查）  
+  获取资源，不能修改服务器数据
+2. POST --- 新增 / 提交（增）
+  向服务器提交数据，通常用于创建新资源
+3. PUT --- 整体更新（改）
+  用请求体中的完整资源“替换”服务器上的资源，例如：上传（更新）头像
+4. PATCH --- 局部更新（改）
+  对资源进行部分修改（不像 PUT 那样整体替换）
+5. DELETE --- 删除（删）
+  删除资源
+
+
 
