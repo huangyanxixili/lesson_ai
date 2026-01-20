@@ -299,3 +299,80 @@ Method + URL 定义方式
 
 
 
+## notes AI 全栈项目
+- 登录功能 
+- 文章系统
+- AIGC 功能
+- nestjs 后端
+
+### shadcn（UI 组件库）
+- 页面由组件构成，选用第三方组件库
+- 安装：pnpm i shadcn@latest
+- 初始化：npx shadcn@latest init
+  npx 是 Node.js 自带的工具，用于临时安装并 **执行** npm 包中的命令，无需全局或本地预先安装。
+  不用预先安装，可以试用，在测试那边，用完会删除
+  - shadcn 提供命令行
+    - button
+      npx shadcn@latest add button
+- 配置环境：
+  - 基于 tailwindcss 样式库
+  - 配置 alias 设置路径别名，更短，好用
+- 优势：
+  - 严格按需加载
+  - 组件下载到本地，可以随意的修改。
+
+### vite 的配置
+- vite.config.ts 配置对象
+  - plugins 插件
+    react / vue
+    tailwindcss 
+  - resolve 
+    alias 路径别名
+      @ -> __dirname/src 
+    npm i -D @types/node 
+      node来到ts开发的时候，单独安装了node的类型申明文件（-D开发期间的依赖）
+- ts 配置文件
+  根目录下的 tsconfig.app.json
+  compilerOptions 配置项 => 目录输出建议
+  baseUrl
+  path
+
+### 路由 （@/router）
+pnpm i react-router-dom
+- 路由懒加载（性能优化的关键）
+  - Suspense + lazy 实现路由的懒加载
+    - 自定义loading 组件 （@/components/Loading）
+- 路由配置
+- 路由守卫
+  - UserStore isLogin 
+
+### 状态管理库 （@/store）
+pnpm i zustand
+
+### 组件库 （@/components）
+#### 回到顶部组件 BackToTop 
+- 通用组件
+- 自有状态isVisible 决定是否显示
+- onScroll 判断一个阈值 
+- scroll 事件频繁触发，性能需要优化
+  节流 utils 目录下 工具函数
+- 组件卸载时，移除事件监听，防止内存泄漏
+
+#### 幻灯片组件 SlideShow
+- shadcn 提供了 Carousel、CarouselContent、CarouselItem 
+  一组组件，层次结构
+- 自动播放的功能作为插件引入，shadcn 简单性能好，定制性更好
+  useRef  持久化可变的对象
+  plugins=[]
+- api 向外暴露Carsoul 的各种功能
+  selectedIndex 私有状态
+  api onSelect 方法 来改变
+- 指示点
+  循环输出
+  动态类名
+- css
+  - transition-all 
+  - gradient 线性渐变，取代图片（渐变色）作为背景
+    性能优化 图片做背景 http下载的开销，减少http并发数
+
+### 工具库 （@/utils）
