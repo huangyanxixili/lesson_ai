@@ -348,6 +348,58 @@ pnpm i react-router-dom
 
 ### 状态管理库 （@/store）
 pnpm i zustand
+- 全局共享
+- 每个页面级别组件都有自己独立的store
+  组件UI 和 数据状态 分离
+#### HomeStore
+- 提供 banners 和 posts 数据
+- 组件通过 useHomeStore 来获取数据
+##### Post List
+- 数据怎么提供？
+  - 真实数据在后端
+  - axios 请求后端api
+  - **前端要等待后端接口吗？**
+    不能等待！在前后端分离的基础上，前端可以 通过模拟（mock）一下 伪造请求自行解决数据需求
+    api 接口文档
+      GET /api/posts?page=1&limit=10 
+      模拟返还的json数据 
+      {
+        status: 200,
+        list: Post[]
+      }
+    最后只要切换到后端真正的地址，无缝衔接
+
+### mockjs （@/mock）
+pnpm i vite-plugin-mock -D
+- 前端接口伪造，开发时候使用，上线前切换成后端接口
+  vite 启动 mock
+  ```ts
+  plugins: [
+    viteMockServe({
+      mockPath: 'src/mock'
+    })
+  ],
+  ```
+- 前后端确立接口开发文档
+pnpm i mockjs
+#### posts mock
+- 阅读接口文档
+- mockjs 语法
+  mockPath posts.js
+  ```js
+  export default {
+    url,
+    method,
+    response:(req, res) => {}
+  }
+  ```
+  - mockjs 随机功能 @
+  - 分页机制
+    - page, limit parseInt 
+    - start, end, total, totalPage
+    - slice 
+    - pagination
+  
 
 ### 组件库 （@/components）
 #### 回到顶部组件 BackToTop 
@@ -376,3 +428,5 @@ pnpm i zustand
     性能优化 图片做背景 http下载的开销，减少http并发数
 
 ### 工具库 （@/utils）
+
+

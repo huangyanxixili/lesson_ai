@@ -1,3 +1,6 @@
+import {
+    useEffect
+} from 'react';
 import Header from '@/components/Header'
 import SlideShow, {type SlideData} from '@/components/SlideShow';
 import { 
@@ -9,7 +12,15 @@ import {
 import { useHomeStore } from '@/store/useHomeStore'
 
 export default function Home() {
-    const { banners } = useHomeStore()
+    const { 
+        banners,
+        loadMore,
+    } = useHomeStore()
+
+    useEffect(() => {
+        loadMore();
+    }, []);
+
     return (
         <>
             <Header title="首页" showBackBtn={true} />
