@@ -429,4 +429,15 @@ pnpm i mockjs
 
 ### 工具库 （@/utils）
 
-
+## JWT登录
+- http 是无状态的
+  Cookie 
+  现代 Authentication
+  - 颁发 身份令牌 token
+  - 安装jwt
+    pnpm i jsonwebtoken
+    - token 就是令牌
+    - web 就是应用形式
+    - json 用户身份对象字面量
+      用户名 + 密码 {id: 1, name: 'admin'} => json 加密成一个token
+      请求时，再传回来 在服务器端 decode（解码）得到用户对象
