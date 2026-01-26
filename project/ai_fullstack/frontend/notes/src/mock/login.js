@@ -53,8 +53,22 @@ export default [
         url: '/api/auth/check',
         method: 'get',
         response: (req, res) => {
+            // 前端发请求时，通常会把 Token 放在 HTTP 头的 Authorization 字段里
             const token = req.headers['authorization'].split(" ")[1];
-            console.log(token);
+            // console.log(token);
+            try {
+                const decode = jwt.decode(token, secret); // 解析token
+                console.log(decode);
+                return {
+                    code: 200,
+                    user: decode.user,
+                }
+            } catch(err) {
+                return {
+                    code: 400,
+                    message: 'token 无效',
+                }
+            }
         }
     }
 ]
