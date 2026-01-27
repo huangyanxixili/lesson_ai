@@ -441,3 +441,30 @@ pnpm i mockjs
     - json 用户身份对象字面量
       用户名 + 密码 {id: 1, name: 'admin'} => json 加密成一个token
       请求时，再传回来 在服务器端 decode（解码）得到用户对象
+  - sign 方法，服务器将用户对象、secret、过期时间 给前端颁发token
+  - decode 方法，解析请求头中的 authorization（Bearer token） 在服务器端拿到用户对象
+
+## api 后端接口项目
+- nest new posts
+  高度模块化、依赖注入特性的企业级开发框架
+- 数据库 
+### prisma ORM 
+将数据库映射成对象
+Table -> 类
+row -> 实例
+props -> props
+psql/mysql 使用sql，太专业且复杂，使用prisma充当翻译官
+         后端          --编写--> prisma --创建--> sql
+  User(service class)            ===        User(table)
+  create                         ===          Insert
+  findMany                       ===          Select
+
+### ORM ObjectRelationMapping 对象关系映射
+
+### Prisma 的初始化流程
+pnpm i prisma@6.19.2
+pnpm i @prisma/client@6.19.2
+- 建数据库
+- prisma 命令行 + @prisma/client(ORM)
+- npx prisma init 初始化
+
