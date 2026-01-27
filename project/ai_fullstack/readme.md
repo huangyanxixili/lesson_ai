@@ -467,4 +467,17 @@ pnpm i @prisma/client@6.19.2
 - 建数据库
 - prisma 命令行 + @prisma/client(ORM)
 - npx prisma init 初始化
+### schema 文件
+后端开发 数据库是最重要的，schema 就是数据库设计稿，将设计文件保留下来
+用model模型类的概念 来描述数据表
+@id                           primary key主键
+@default(@autoincrement())    SERIAL自增
+@db.Varchar(255)              VARCHAR(255)
+@unique                       唯一值
 
+Prisma 的迁移命令：
+ - npx prisma migrate dev
+
+### migrate 数据表的迁移
+- 方便
+- 留下日志 

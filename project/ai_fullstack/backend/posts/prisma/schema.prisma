@@ -13,3 +13,136 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+//字段名       类型           修饰符/属性
+  id          Int           @id @default(autoincrement())
+  name        String        @unique @db.VarChar(255)
+  password    String        @db.VarChar(255)
+  createdAt   DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime?     @default(now()) @map("updated_at") @db.Timestamptz(6)
+// 一对多 方便查询用户所有的文章
+  posts       Post[]
+  comments    Comment[]
+  likes       UserLikePost[]
+  avatars     Avatar[]
+  files       File[]
+
+  @@map("users")
+}
+
+model Post {
+  id          Int           @id @default(autoincrement())
+  title       String        @db.VarChar(255)
+  content     String?       @db.Text
+  userId      Int?
+// 外键绑定    关联到User模型  连接模型（外键字段， 对方主键字段， 级联删除策略）
+  user        User?         @relation(fields:[userId], references:[id], onDelete: SetNull)
+  comments    Comment[]
+  tags        PostTag[]
+  likes       UserLikePost[]
+  files       File[]
+// 设置补充索引  为常用外键添加额外索引用于提升查询效率（常用于过滤数据，例如查询某个人所有文章）
+  @@index([userId])
+
+  @@map("posts")
+}
+
+model Comment {
+  id          Int           @id @default(autoincrement())
+  content     String?       @db.Text
+  postId      Int
+  userId      Int
+  parentId    Int?
+
+  post        Post          @relation(fields:[postId], references:[id], onDelete:Cascade)  
+  user        User          @relation(fields:[userId], references:[id], onDelete:Cascade)
+// 自关联
+// 父评论，如果是顶层parentId为null
+  parent      Comment?      @relation("CommentToComment", fields:[parentId], references:[id], onDelete: Cascade)
+// 子评论
+  replies     Comment[]     @relation("CommentToComment")
+
+  @@index([postId])
+  @@index([userId])
+  @@index([parentId])
+
+  @@map("comments")
+}
+
+model Tag {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique @db.VarChar(255)
+// 多对多 需要”中间表“实现（纯关系表）
+  posts       PostTag[]
+
+  @@map("tags")
+}
+
+model PostTag {
+  postId      Int
+  tagId       Int
+  post        Post          @relation(fields:[postId], references:[id], onDelete:Cascade)
+  tag         Tag           @relation(fields:[tagId], references:[id], onDelete:Cascade)
+// 复合组件
+  @@id([postId, tagId])
+  @@index([tagId])
+
+  @@map("post_tags")
+}
+
+model UserLikePost {
+  userId      Int
+  postId      Int
+
+  user        User          @relation(fields:[userId], references:[id], onDelete:Cascade)
+  post        Post          @relation(fields:[postId], references:[id], onDelete:Cascade)
+
+  @@id([userId, postId])
+  @@index([postId])
+
+  @@map("user_like_posts")
+}
+
+model Avatar {
+  id          Int           @id @default(autoincrement())
+  mimetype    String        @db.VarChar(255)
+  filename    String        @db.VarChar(255)
+  size        Int           
+  userId      Int
+  user        User          @relation(fields:[userId], references:[id], onDelete:Cascade)
+
+  @@index([userId])
+
+  @@map("avatars")
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  originalname String   @db.VarChar(255)
+  mimetype     String   @db.VarChar(255)
+  filename     String   @db.VarChar(255)
+  size         Int
+  // 在 PostgreSQL 中，smallint 映射为 Int 并添加 @db.SmallInt
+  width        Int      @db.SmallInt
+  height       Int      @db.SmallInt
+  // metadata 对应 json
+  // PostgreSQL 完美支持 native JSON 类型
+  metadata     Json?
+  // 外键字段
+  postId       Int?     // 对应 DEFAULT NULL
+  userId       Int      // 对应 NOT NULL
+
+  // 关联到 Post：当帖子删除时，文件关联设为 null（因为 postId 允许为空）
+  post         Post?    @relation(fields: [postId], references: [id], onDelete: SetNull)
+  // 关联到 User：当用户删除时，级联删除其上传的文件
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 对应 MySQL 中的 KEY 索引
+  @@index([postId])
+  @@index([userId])
+
+  // 按照之前的习惯，映射为复数形式
+  @@map("files")
+}
+
