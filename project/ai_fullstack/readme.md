@@ -445,6 +445,7 @@ pnpm i mockjs
   - decode 方法，解析请求头中的 authorization（Bearer token） 在服务器端拿到用户对象
 
 ## api 后端接口项目
+创建后端框架
 - nest new posts
   高度模块化、依赖注入特性的企业级开发框架
 - 数据库 
@@ -481,3 +482,14 @@ Prisma 的迁移命令：
 ### migrate 数据表的迁移
 - 方便
 - 留下日志 
+
+可视化建成的表
+- prisma studio
+  npx prisma studio
+
+### seeds
+
+### 跨域
+解决同源策略问题
+- 配置
+pnpm i @nestjs/platform-express
