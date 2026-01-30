@@ -478,6 +478,9 @@ pnpm i @prisma/client@6.19.2
 
 Prisma 的迁移命令：
  - npx prisma migrate dev
+代码生成器开关：
+- npx prisma generate
+  读取你的 schema.prisma 文件，并根据它生成 PrismaClient 的代码库（通常在 node_modules/.prisma/client 下）。
 
 ### migrate 数据表的迁移
 - 方便
@@ -489,7 +492,49 @@ Prisma 的迁移命令：
 
 ### seeds
 
+### 核心架构：分层职责 (Layered Architecture Responsibility)
+控制器层 (Controller Layer) —— 请求分发与响应适配
+  职责：作为应用程序的**入口点**，负责接收并解析客户端发起的 **HTTP 请求**。
+  功能：
+  - 路由映射 (Routing)：将特定的 URL 路径映射到对应的处理函数。
+  - 参数解析与验证 (Parsing & Validation)：提取 Query/Body/Param 参数，并结合 DTO 进行格式校验。
+  - 委托 (Delegation)：不包含核心业务逻辑，仅将清洗后的数据**转发 (Dispatch)** 给对应的服务层 (Service) 处理。
+  - 响应封装 (Response Formatting)：接收 Service 的返回结果，封装成标准的 HTTP 响应（状态码、Header、数据体）返回给客户端。
+
+服务层 (Service Layer) —— 业务逻辑与数据交互
+  职责：作为**领域逻辑 (Domain Logic)** 的核心载体，封装具体的业务规则。
+  功能：
+  - 业务处理 (Business Processing)：执行核心计算、逻辑判断、权限校验等操作。
+  - 数据持久化 (Data Persistence)：负责与数据库进行交互（通过 ORM 如 Prisma），执行 CRUD 操作。
+  - 事务管理 (Transaction Management)：确保数据操作的原子性和一致性。
+  - 协议无关性 (Protocol Agnostic)：不直接依赖 HTTP 上下文，确保逻辑可复用且易于测试。
+
+**总结表述**：
+> 采用 **MVC (Model-View-Controller)** 或 **分层架构** 模式，实现了 **关注点分离 (Separation of Concerns)**。**Controller** 充当 **API 网关/适配器**，负责处理通信协议；**Service** 充当 **领域模型/业务引擎**，负责处理核心逻辑与数据访问。
+
 ### 跨域
 解决同源策略问题
 - 配置
 pnpm i @nestjs/platform-express
+
+### DTO（Data Transfer Object）
+前端 -> 后端api接口 -> DTO校验 -> 控制器 -> service transfer过程
+
+DTO 的主要约束：
+  前端发来请求 -> DTO 进行拦截和校验 -> 如果格式不对，直接报错（400 Bad Request）， 连 Controller 的门都进不去
+  核心价值就是不要让垃圾数据污染到我们的 Controller 代码
+- dto/post-query.dto.ts
+- 验证器（class-validator）
+  pnpm i class-validator
+  将参数的校验 流程化、规范化
+- 类型转换（class-transformer）
+  pnpm i class-transformer
+- 全局配置一下
+
+### @prisma/client（全自动数据库操作 SDK）
+- 怎么给service提供 client 代替 db
+
+  
+
+
+
