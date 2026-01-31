@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            height: 200vh;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <!-- data-src数据属性，开发者自己存数据用的，浏览器不会对它进行任何默认渲染或处理 --> 
+    <img class="lazy" src="https://ts3.tc.mm.bing.net/th/id/OIP-C.R86aJ5pc3Fu1oGj9boecuAAAAA?w=130&h=108&c=7&qlt=90&bgcl=7794ba&r=0&o=6&dpr=1.4&pid=13.1" data-src="https://tse3-mm.cn.bing.net/th/id/OIP-C.6OMmPBFYeF48y17ZK8JuYQAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+    <div class="box"></div>
+    <img class="lazy" src="https://ts3.tc.mm.bing.net/th/id/OIP-C.R86aJ5pc3Fu1oGj9boecuAAAAA?w=130&h=108&c=7&qlt=90&bgcl=7794ba&r=0&o=6&dpr=1.4&pid=13.1" data-src="https://ts1.tc.mm.bing.net/th/id/OIP-C.rxcstW718ccXdCZg_AUliwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+    <script>
+        const images = document.querySelectorAll('.lazy');
+        // 观察对象 onScroll 事件（手动触发 + 监听）
+        // 浏览器提供的观察者模式（自动观察，浏览器内置，没有性能问题）
+        const observer = new IntersectionObserver((entries) => {
+            // 图片出现在视窗，img 和 视窗 交集（Intersection）
+            console.log(entries, '-------------');
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { // 图片出现在视窗
+                    const img = entry.target;
+                    const original_img = img.dataset.src; // 提取出data-src
+                    console.log(original_img); 
+                    img.src = original_img; // src变化，浏览器立刻发起网络请求
+                    // 性能优化（不用重复观察）
+                    observer.unobserve(img)
+                }
+            })
+        })
+        images.forEach(img => observer.observe(img));
+    </script>
+</body>
+</html>

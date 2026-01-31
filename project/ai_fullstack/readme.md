@@ -559,5 +559,24 @@ pnpm i @nestjs/platform-express
     - 再拿到 likes   
 
 
+## 图片懒加载
+- img src http 请求 并发 
+  - 需要加载的图片，首页首屏
+    图片先用占位图片（小），优先去加载html、css，首屏的显示速度优先
+  - 视图窗口（viewport）之外的 不需要加载
+    监听onScroll事件，节流，滚动到哪里就懒加载进入视窗的图片
+
+1. 首先实例化 IntersectionObserver
+  Observer 观察者模式（设计模式）
+  Intersection 与 viewport视窗 的交叉
+  entries 所有被观察的元素
+2. 通过 isIntersecting 判断是否出现在视窗
+3. dataset.src 替换给 src
+4. observer.unobserve 取消观察
+给所有的.lazy 加观察 observer.observe()
+
+
+
+
 
 
