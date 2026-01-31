@@ -520,21 +520,44 @@ pnpm i @nestjs/platform-express
 ### DTO（Data Transfer Object）
 前端 -> 后端api接口 -> DTO校验 -> 控制器 -> service transfer过程
 
-DTO 的主要约束：
-  前端发来请求 -> DTO 进行拦截和校验 -> 如果格式不对，直接报错（400 Bad Request）， 连 Controller 的门都进不去
-  核心价值就是不要让垃圾数据污染到我们的 Controller 代码
+- 用户提交（query?, body）打理的标注
+- main.ts 启用中间件
+  DTO 的主要约束：
+    多传的不要，少传的报错，transform转换dto类型
+    前端发来请求 -> DTO 进行拦截和校验 -> 如果格式不对，直接报错（400 Bad Request）， 连 Controller 的门都进不去
+    核心价值就是不要让垃圾数据污染到我们的 Controller 代码
 - dto/post-query.dto.ts
-- 验证器（class-validator）
-  pnpm i class-validator
-  将参数的校验 流程化、规范化
+- 属性类型约束的装饰器（class-validator）
+  `pnpm i class-validator`
+    将参数的校验 流程化、规范化
 - 类型转换（class-transformer）
-  pnpm i class-transformer
+  `pnpm i class-transformer`
+    约束 query | body 中的数据类型
 - 全局配置一下
 
-### @prisma/client（全自动数据库操作 SDK）
-- 怎么给service提供 client 代替 db
+### prisma 流程
+- prisma 命令行、@prisma/client 两个
+- 初始化 `npx prisma init`
+  prisma 文件夹：
+    schema：编写Model（属性、类型、key、关系）
+    .env：描述psql 连接的字符串
+- 迁移 `npx prisma dev migrate --init-user`
+- 生成 prisma 客户端 `npx prisma generate` 
+- prisma module 引入 `import { PrismaService } from './prisma.service';`
+  - 和nest融合
+  - prisma module 的 providers 提供 PrismaService 实例
+    @Global()装饰一下，全局可用
 
-  
+#### @prisma/client（全自动数据库操作 SDK）
+- 怎么给service提供 client 代替 db
+- 文章列表
+  - 背后有多条sql 
+    count、posts表，用于分页 total 
+  - 文章列表详情
+    title content...
+    - 拿到每篇文章的id -> tags找
+    - 再拿到 likes   
+
 
 
 
