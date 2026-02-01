@@ -49,6 +49,12 @@ export class PostsService {
                             likes: true,
                             comments: true,
                         }
+                    },
+                    files: {
+                        where: {
+                            mimetype: { startsWith: 'image/' },
+                        },
+                        select: { filename: true }
                     }
                 }
             }),
