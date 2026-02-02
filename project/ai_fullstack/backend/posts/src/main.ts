@@ -6,6 +6,8 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 // 自动对 进入Controller的数据进行验证和转换
 import { ValidationPipe } from '@nestjs/common';
+// node 内置模块 path 路径处理模块 join 用于拼接路径
+import { join } from 'path';
 
 async function bootstrap() {
   // 如果自己new一个Nest应用极其复杂，但是使用工厂NestFactory.create可以直接创建nest应用实例
@@ -21,6 +23,11 @@ async function bootstrap() {
     forbidNonWhitelisted: true, // 遇到未定义的属性直接报错
     transform: true, // “1” transform 1 （自动类型转换）
   }));
+  // 搭建静态资源目录
+  // process.cwd()当前项目根目录 拼接 uploads 目录
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads',
+  })
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

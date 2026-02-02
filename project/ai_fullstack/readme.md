@@ -576,7 +576,27 @@ pnpm i @nestjs/platform-express
 给所有的.lazy 加观察 observer.observe()
 
 
+### 静态服务器
+- service, 提供数据 --> 动态
+- 静态资源  html/css/js/img --> 静态
+
+- 根目录下的uploads/ 目录下
+- main.ts 启用静态资源服务器 
+  区别于动态资源，不需要controller提供路由，只需要配置静态资源目录
+  - app.useStaticAssets 启用静态资源服务器（托管静态文件）
+  - path join 拼接路径
+    process.cwd()当前项目根目录 拼接 uploads 目录
+  - prefix 虚拟前缀
+    `prefix: '/uploads'` 访问url时，在文件地址前添加前缀uploads
 
 
+### 接口数据格式调整
+- 依据前后端文档格式要求 
+- prisma-client 查出数据之后，通过map格式话输出
+- 后端对接口文档的尊重 
 
-
+### 图片懒加载
+- 列表一定要做图片的懒加载
+- react 提供了 react-lazy-load 组件，背后 intersectionObserver
+  pnpm i react-lazy-load
+- 包着原来要显示的图片 loading="lazy "

@@ -60,8 +60,26 @@ export class PostsService {
             }),
         ])
 
+        // 查询数据，再整备一下
+        const data = posts.map(post => ({
+            id: post.id,
+            title: post.title,
+            // 将 content 截取（列表简介）
+            brief: post.content ? post.content.substring(0, 100) : '',
+            // publishedAt: post.createdAt || null,
+            user: {
+                id: post.user?.id,
+                name: post.user?.name,
+                avatar: `http://localhost:3000/uploads/avatar/resized/${post.user?.avatars[0].filename}-small.jpg`,
+            },
+            tags: post.tags.map(t => t.tag.name),
+            totalLikes: post._count.likes,
+            totalComments: post._count.comments,
+            thumbnail: `http://localhost:3000/uploads/resized/${post.files[0]?.filename}-thumbnail.jpg` || null,
+        }))
+
         return {
-            items: posts,
+            items: data,
             total: total,
         }
     }
