@@ -1,0 +1,13 @@
+// 加分项：多组件实现 keep alive
+import { KeepAlive } from 'react-activation'
+import Home from '@/pages/Home'
+
+const KeepAliveHome = () => {
+    return (
+        <KeepAlive name="home" saveScrollPosition="screen" > 
+            <Home />
+        </KeepAlive>
+    )
+}
+
+export default KeepAliveHome

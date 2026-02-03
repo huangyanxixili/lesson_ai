@@ -621,3 +621,13 @@ pnpm i @nestjs/platform-express
   前端负责路由， js中拿出来组件（前端），进行替换
 - 首页太重要了，用户频繁的在首页和其他页面切换（美团，天猫）
   首页的不断卸载挂载，重复渲染 不违和了
+
+### KeepAlive
+- home 不能卸载，需要keep alive
+- react-activation
+  `pnpm i react-activation`
+  cache 缓存home（状态），界面和数据都保持
+  display:none 隐藏home，离开文档流 
+- 实现：
+  KeepAlive + AliveScope
+  
