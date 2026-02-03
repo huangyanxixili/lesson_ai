@@ -600,3 +600,24 @@ pnpm i @nestjs/platform-express
 - react 提供了 react-lazy-load 组件，背后 intersectionObserver
   pnpm i react-lazy-load
 - 包着原来要显示的图片 loading="lazy "
+
+### InfiniteScroll 组件
+- 通用组件
+  为列表带来分页无线加载能力
+- 抽象封装能力
+  可定制的列表作为children 提供
+  在children下面添加一个哨兵节点
+- 使用 IntersectionObserver threshold 0.0
+- loadMore loading hasMore 放入 store 状态管理
+- 联动启动 
+
+
+### 首页优化
+- 反复切换 首页->其他页面，重复加载
+- 路由的切换，单页应用 SPA（Single Page Application）
+  React + React-Router 
+  很快 不需要白屏 
+    - 传统：每次切换页面都需要向 服务器请求新的HTML，但是新的还没加载，所以会白屏一下
+  前端负责路由， js中拿出来组件（前端），进行替换
+- 首页太重要了，用户频繁的在首页和其他页面切换（美团，天猫）
+  首页的不断卸载挂载，重复渲染 不违和了
