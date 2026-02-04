@@ -631,3 +631,6 @@ pnpm i @nestjs/platform-express
 - 实现：
   KeepAlive + AliveScope
   
+
+### 登录功能
+- 注册
