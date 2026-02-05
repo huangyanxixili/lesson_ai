@@ -634,3 +634,38 @@ pnpm i @nestjs/platform-express
 
 ### 登录功能
 - 注册
+  - password 单向加密
+    不能解密，防止程序员/黑客，仍然可以确保密码安全
+    bcrypt 单向加密算法（单项哈希）
+
+> 由于前面添加了假数据，所以新注册的用户要从当前最后一个id开始自增
+> SELECT setval('posts_id_seq', (SELECT COALESCE(MAX(id), 0) FROM posts));
+- 登录
+  cookie 之前的登录解决方案 http 会自动带上cookie
+    cookie 就是比 localStorage 更小的本地存储，存身份信息
+  JWT Authorization 字段 axios 请求拦截
+    轻量级 用于跨域 JSON（用户对象信息 不安全） Web Token(hash 令牌)
+    双向（加解码sigh/decode secret）
+    身份验证 
+- Auth 鉴权模块
+
+### 错误异常模块
+- 后端，错误处理是核心模块
+  4XX  400 BadRequest  401 UnAuthorizated
+  5XX  服务器端错误
+- `try {} catch() {...}`
+  catch 错误是可以被处理的 
+- BadRequestException（nestjs 内置多个HTTP异常类）
+  nestjs 准备了各种异常处理类，解决各种问题
+  - return 
+  - 400|401|403|500... statusCode, message
+
+
+## 设计模式（23种）
+- 工厂模式
+- 单例模式
+- 装饰器模式
+   为类快速添加属性和方法
+- 观察者模式（InterSectionObserver）
+- 代理模式（Proxy）
+- 订阅发布者模式（addEventListener）
