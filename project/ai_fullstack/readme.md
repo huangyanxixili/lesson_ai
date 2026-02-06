@@ -648,6 +648,28 @@ pnpm i @nestjs/platform-express
     双向（加解码sigh/decode secret）
     身份验证 
 - Auth 鉴权模块
+  - @nestjs/jwt 需要安装的，但是是nestjs 本身提供的jwt身份验证模块
+    jwt 协议
+  - JwtService sign 
+  - JwtModule Auth模块里imports它，方便注入依赖
+
+### JWT 双token机制
+- mockjs，使用了jsonwebtoken 实现了 单token sign/decoded
+- 单token 容易被中间人截获，不安全 --> 双token 机制
+- 双token 机制
+  - access_token（AT） 短，以"分钟"为单位
+    用于日常访问，防止黑客攻击
+  - refresh_token（RT） 长，以"天"为单位
+    用于刷新access_token，提升用户体验（不能每15分钟就让用户重新登录）
+  两个token一样具有 token 验证能力（JwtService.signAsync）
+- 双token实现：
+  axios 请求拦截中 access_token，会比较快的过期。此时就拿出 refresh_token（前提没过期） 识别用户身份，如果没问题
+  就重新颁发新的AT和RT覆盖旧的，并且用户只要长token时限内活跃，就无限续杯
+- Promise.all 面试官问：
+  举个例子 
+    --> nestjs 进行 posts 列表查询， count 和 list 使用 Promise.all 并行查询，提高效率
+    --> nestjs 做 双token 的并发生成，token生成是需要开销性能和时间
+
 
 ### 错误异常模块
 - 后端，错误处理是核心模块

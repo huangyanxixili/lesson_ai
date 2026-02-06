@@ -8,7 +8,7 @@ axios.defaults.baseURL = 'http://localhost:3000/api'
 // 请求拦截器
 axios.interceptors.request.use(config => {
     // console.log("||||||||||", config)
-    const token = useUserStore.getState().token;
+    const token = useUserStore.getState().accessToken;
     // 1. 为什么不能直接用 useUserStore() ？
     // useUserStore 是一个 Hook。而React的铁律：Hooks只能在React组件内部或其他Hook内部调用。
     // 而这里的 axios拦截器只是一个普通的js函数，所以不能直接使用 `const { token } = useUserStore()`
