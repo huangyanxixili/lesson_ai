@@ -682,7 +682,6 @@ pnpm i @nestjs/platform-express
   - return 
   - 400|401|403|500... statusCode, message
 
-
 ## 设计模式（23种）
 - 工厂模式
 - 单例模式
@@ -691,3 +690,23 @@ pnpm i @nestjs/platform-express
 - 观察者模式（InterSectionObserver）
 - 代理模式（Proxy）
 - 订阅发布者模式（addEventListener）
+
+## 鉴权处理
+- 新增文章、点赞等 需要权限的操作，需要先登录
+- access_token, refresh_token 双token
+  api 请求由axios 自动带上access_token, Authorization
+- backend posts.controller createPost 方法
+  createPost 需要收到鉴权的保护？ nestjs 提供了 guard 的概念
+  req Authorization access_token ?
+  拿到 user id ，通过@nestjs/jwt verify 验证
+
+### nestjs useGuard 守卫
+UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用守卫（Guard）
+会在路由处理方法前，先执行Guard函数，鉴权
+如果鉴权失败，抛出401，直接退出
+如果成功，用jwt verify 出来的对象帮我们添加到req对象上
+路由处理方法里面将可以使用user信息
+- AuthGuard('jwt') 由@nestjs/passport 直接提供 
+- Unknown authentication strategy "jwt"
+  jwt 鉴权策略
+  会去查找 strategy 配置
