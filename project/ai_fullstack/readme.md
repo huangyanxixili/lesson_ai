@@ -710,3 +710,9 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
 - Unknown authentication strategy "jwt"
   jwt 鉴权策略
   会去查找 strategy 配置
+- jwt 双token流程
+  - 双token生成，@nestjs/jwt 
+  - 鉴权 @nests/guard useGuard
+  - 刷新 refresh_token ，重新获取 access_token
+    useGuard 返回 401 就过期了
+ 

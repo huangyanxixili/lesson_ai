@@ -36,9 +36,12 @@ export class PostsController {
         @Body('content') content: string,
         @Req() req
     ) {
-        return {
+        // console.log(req.user);
+        const { user } = req;
+        return this.postsService.createPost({
             title,
             content,
-        }
+            userId: user.id
+        })
     }
 }
