@@ -15,3 +15,11 @@ export const fetchPosts = async (page:number = 1, limit:number = 10) => {
         
     }
 }
+
+// 发表文章
+export const createPosts = async () => {
+    return axios.post('/posts', {
+        title: "123123123",
+        content: "cccccccccc",
+    })
+}

@@ -715,4 +715,9 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
   - 鉴权 @nests/guard useGuard
   - 刷新 refresh_token ，重新获取 access_token
     useGuard 返回 401 就过期了
+
  
+### refresh token
+- axios 响应拦截，有多个处理函数，如果服务器端抛出异常，执行失败处理函数
+  找到了refresh 入口
+- 
