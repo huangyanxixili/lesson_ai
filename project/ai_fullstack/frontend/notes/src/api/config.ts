@@ -43,10 +43,10 @@ let requestQueue: any[] = [];
 // data 只是其中的一项
 instance.interceptors.response.use(res => { // 成功的响应
     console.log('///////')
-    if (res.status != 200) {
-        console.log("出错了")
-        return;
-    }
+    // if (res.status != 200) {
+    //     console.log("出错了")
+    //     return;
+    // }
     return res.data
 }, async (err) => { // 异常的响应
     // console.log(err, '响应异常');
@@ -70,7 +70,39 @@ instance.interceptors.response.use(res => { // 成功的响应
         }
         config._retry = true; // retry开关
         isRefreshing = true; // 标记正在刷新token
+
+        try {
+            // refresh
+            const { refreshToken } = useUserStore.getState();
+            if (refreshToken) {
+                // 无感刷新token
+                const { access_token, refresh_token } = await instance.post('/auth/refresh', {
+                    refresh_token: refreshToken
+                })
+                // console.log(res, "???????????????????");
+                useUserStore.setState({
+                    accessToken: access_token,
+                    refreshToken: refresh_token,
+                    isLogin: true,
+                });
+                
+                requestQueue.forEach((callback) => callback(access_token));
+                requestQueue = [];
+
+                // 当前请求
+                config.headers.Authorization = `Bearer ${access_token}`;
+                return instance(config);
+            }
+        } catch(err) {
+            // 刷新token失败，跳转到登录页
+            useUserStore.getState().logout(); 
+            window.location.href='/login';
+            return Promise.reject(err);
+        } finally {
+            isRefreshing = false;
+        }
     }
+    return Promise.reject(err);
 })
 
 export default instance

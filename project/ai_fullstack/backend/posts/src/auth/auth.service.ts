@@ -71,7 +71,7 @@ export class AuthService {
             // 异步颁发两次token（signAsync）
             // access_token（AT），用于日常访问，防止黑客攻击
             this.jwtService.signAsync(payload, {
-                expiresIn: '1m', // 有效期15分钟 更安全（被中间人攻击）
+                expiresIn: '15m', // 有效期15分钟 更安全（被中间人攻击）
                 secret: process.env.TOKEN_SECRET,
             }),
             // refresh_token（RT），用于刷新access_token，提升用户体验（不能每15分钟就让用户重新登录）

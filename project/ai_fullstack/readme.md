@@ -720,4 +720,21 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
 ### refresh token
 - axios 响应拦截，有多个处理函数，如果服务器端抛出异常，执行失败处理函数
   找到了refresh 入口
-- 
+
+
+### chatbot
+- 流式输出
+- llm 提出的问题 input
+  llm 函数(参数1...)
+  llm 返回 output
+  token 生成按token 来生成
+  token 生成token,神经网络系统 AIGC token的循环生成的本质
+  流式?
+
+- 前端用户体验
+  响应更快，打字机一样的效果，像水流逐字输出
+
+- http 请求
+  Connection: Keep Alive
+  事件监听 SSE（Server Sent Events）
+    AI对话、进度条、股票行情

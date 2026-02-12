@@ -32,6 +32,7 @@ export default function RouterConfig({children}: {children?: React.ReactNode}) {
                 <Suspense fallback={<Loading />}>
                     <Routes>
                         <Route path="/login" element={<Login />} />
+                        <Route path="/chat" element={<Chat />} />
 
                         {/* Post route 模块 */}
                         <Route path="/post"  element={<PostLayout />} >
@@ -42,7 +43,6 @@ export default function RouterConfig({children}: {children?: React.ReactNode}) {
                         <Route path="/" element={<MainLayout />}>
                             <Route path="" element={<Home />} />
                             <Route path="mine" element={<Mine />} />
-                            <Route path="chat" element={<Chat />} />
                             <Route path="order" element={<Order />} />
                         </Route>
                     </Routes>
