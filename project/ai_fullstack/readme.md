@@ -738,3 +738,14 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
   Connection: Keep Alive
   事件监听 SSE（Server Sent Events）
     AI对话、进度条、股票行情
+
+
+### chatbot hook
+- 将bot 的响应式业务剥离
+- vercel ai-sdk/react（流式数据处理 + 状态管理）
+  `pnpm i @ai-sdk/react@1.2.12`
+  AI 前端应用，nextjs(react SSR框架) 
+  @ai-sdk 封装了chatbot，一键式快速开发
+  - chatbot UI、响应式和AI业务剥离
+- mockjs 流式输出
+  rawResponse 模拟流式输出（面试不用说）
