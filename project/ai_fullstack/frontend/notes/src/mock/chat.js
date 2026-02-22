@@ -76,6 +76,8 @@ export default [
                                     const content = data.choices[0]?.delta?.content || '';
                                     if (content) {
                                         // 发送给前端 SSE核心
+                                        // 向输出流不断的写入content
+                                        // ai-sdk 要求的格式
                                         res.write(`0:${JSON.stringify(content)}\n`);
                                     }
                                 } catch(err) {

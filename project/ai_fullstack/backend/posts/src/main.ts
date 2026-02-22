@@ -20,7 +20,7 @@ async function bootstrap() {
   // 启用全局验证管道，将原始数据转换为dto类实例（Controller愿意接收的数据）
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true, // 自动过滤dto 未定义的属性
-    forbidNonWhitelisted: true, // 遇到未定义的属性直接报错
+    // forbidNonWhitelisted: true, // 遇到未定义的属性直接报错
     transform: true, // “1” transform 1 （自动类型转换）
   }));
   // 搭建静态资源目录

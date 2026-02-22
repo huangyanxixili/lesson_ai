@@ -5,6 +5,7 @@ import { PostsModule } from './posts/posts.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { AIModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     // 鉴权模块
     AuthModule,
+    AIModule,
   ],
   controllers: [AppController],
   providers: [AppService],
