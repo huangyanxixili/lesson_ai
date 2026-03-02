@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@langchain/core':
+        specifier: ^1.1.29
+        version: 1.1.29(openai@6.22.0(zod@4.3.6))
       '@langchain/deepseek':
         specifier: ^1.0.13
-        version: 1.0.13(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))
+        version: 1.0.13(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.12(class-transformer@0.5.1)(class-validator@0.14.3)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -40,7 +43,7 @@ importers:
         version: 0.14.3
       langchain:
         specifier: ^1.2.25
-        version: 1.2.25(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))(openai@6.22.0(zod@4.3.6))
+        version: 1.2.25(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))(openai@6.22.0(zod@4.3.6))
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
@@ -666,8 +669,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@langchain/core@1.1.27':
-    resolution: {integrity: sha512-YVtEz3nqCh8WxtdVXUICmt2BR2An+mn4YRJUBwcHX47Yrh2VwxpO0l97B2N/sNi658m65HnGyz2/hAjF3fzc1w==}
+  '@langchain/core@1.1.29':
+    resolution: {integrity: sha512-BPoegTtIdZX4gl2kxcSXAlLrrJFl1cxeRsk9DM/wlIuvyPrFwjWqrEK5NwF5diDt5XSArhQxIFaifGAl4F7fgw==}
     engines: {node: '>=20'}
 
   '@langchain/deepseek@1.0.13':
@@ -3263,6 +3266,10 @@ packages:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
     hasBin: true
 
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
   uuid@13.0.0:
     resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
@@ -4077,7 +4084,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6))':
+  '@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
@@ -4087,7 +4094,7 @@ snapshots:
       langsmith: 0.5.5(openai@6.22.0(zod@4.3.6))
       mustache: 4.2.0
       p-queue: 6.6.2
-      uuid: 10.0.0
+      uuid: 11.1.0
       zod: 4.3.6
     transitivePeerDependencies:
       - '@opentelemetry/api'
@@ -4095,32 +4102,32 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/deepseek@1.0.13(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))':
+  '@langchain/deepseek@1.0.13(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
-      '@langchain/openai': 1.2.9(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
+      '@langchain/openai': 1.2.9(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))
     transitivePeerDependencies:
       - ws
 
-  '@langchain/langgraph-checkpoint@1.0.0(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))':
+  '@langchain/langgraph-checkpoint@1.0.0(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
       uuid: 10.0.0
 
-  '@langchain/langgraph-sdk@2.0.0(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))':
+  '@langchain/langgraph-sdk@2.0.0(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))':
     dependencies:
       '@types/json-schema': 7.0.15
       p-queue: 9.1.0
       p-retry: 7.1.1
       uuid: 13.0.0
     optionalDependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
 
-  '@langchain/langgraph@1.1.5(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))(zod@4.3.6)':
+  '@langchain/langgraph@1.1.5(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))(zod@4.3.6)':
     dependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
-      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))
-      '@langchain/langgraph-sdk': 2.0.0(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
+      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))
+      '@langchain/langgraph-sdk': 2.0.0(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))
       '@standard-schema/spec': 1.1.0
       uuid: 10.0.0
       zod: 4.3.6
@@ -4128,9 +4135,9 @@ snapshots:
       - react
       - react-dom
 
-  '@langchain/openai@1.2.9(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))':
+  '@langchain/openai@1.2.9(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))':
     dependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
       js-tiktoken: 1.0.21
       openai: 6.22.0(zod@4.3.6)
       zod: 4.3.6
@@ -6042,11 +6049,11 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  langchain@1.2.25(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))(openai@6.22.0(zod@4.3.6)):
+  langchain@1.2.25(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))(openai@6.22.0(zod@4.3.6)):
     dependencies:
-      '@langchain/core': 1.1.27(openai@6.22.0(zod@4.3.6))
-      '@langchain/langgraph': 1.1.5(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))(zod@4.3.6)
-      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.27(openai@6.22.0(zod@4.3.6)))
+      '@langchain/core': 1.1.29(openai@6.22.0(zod@4.3.6))
+      '@langchain/langgraph': 1.1.5(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))(zod@4.3.6)
+      '@langchain/langgraph-checkpoint': 1.0.0(@langchain/core@1.1.29(openai@6.22.0(zod@4.3.6)))
       langsmith: 0.5.5(openai@6.22.0(zod@4.3.6))
       uuid: 10.0.0
       zod: 4.3.6
@@ -6910,6 +6917,8 @@ snapshots:
   utils-merge@1.0.1: {}
 
   uuid@10.0.0: {}
+
+  uuid@11.1.0: {}
 
   uuid@13.0.0: {}
 

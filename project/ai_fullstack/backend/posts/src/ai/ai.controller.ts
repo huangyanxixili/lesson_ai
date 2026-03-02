@@ -26,6 +26,7 @@ export class AIController {
             await this.aiService.chat(chatDto.messages, (token) => {
                 res.write(`0:${JSON.stringify(token)}\n`);
             })
+            res.end();
         } catch(err) {
             console.error(err)
             res.status(500).end();

@@ -749,3 +749,24 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
   - chatbot UI、响应式和AI业务剥离
 - mockjs 流式输出
   rawResponse 模拟流式输出（面试不用说）
+  - model  streaming: true 边生成边响应
+  - 前端 事件监听 SSE Service Send Event 流式响应 @ai/sdk 封装了
+  - 响应头设置
+    Content-Type: text/event-stream
+    Cache-Control: no-cache
+    Connection: keep-alive
+  - reader.read() 读取响应体
+  - TextDecoder 解码响应体
+  - res.write() 写入响应体
+  - data:[end] res.end()
+  - langchain 后端的业务封装
+    this.chatModel.stream()
+    for await (const chunk of stream) {
+
+    }
+
+## 搜索功能
+- mockjs 搜索接口
+  GET 
+  /api/search?keyword=vue
+  
