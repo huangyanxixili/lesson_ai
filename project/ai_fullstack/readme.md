@@ -768,5 +768,11 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
 ## 搜索功能
 - mockjs 搜索接口
   GET 
-  /api/search?keyword=vue
-  
+  /api/search?keyword=编码
+  存在中文这种非ASCII 字符，需要编码 encodeURI(/api/search?keyword=编码)
+    '/api/search?keyword=%E7%BC%96%E7%A0%81' 
+    - 字符串匹配
+    - like 模糊匹配
+    - 基于大模型的语义搜索
+      前端 => vue √
+      hello == 你好

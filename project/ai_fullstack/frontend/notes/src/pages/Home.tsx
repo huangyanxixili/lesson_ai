@@ -1,7 +1,6 @@
 import {
     useEffect
 } from 'react';
-import Header from '@/components/Header'
 import SlideShow, {type SlideData} from '@/components/SlideShow';
 import { 
     Card, 
@@ -12,8 +11,12 @@ import {
 import { useHomeStore } from '@/store/useHomeStore'
 import InfiniteScroll from '@/components/InfiniteScroll';
 import PostItem from '@/components/PostItem';
+import { useNavigate } from 'react-router-dom';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 export default function Home() {
+    const navigate = useNavigate();
     const { 
         banners,
         posts,
@@ -28,8 +31,21 @@ export default function Home() {
 
     return (
         <>
-            <Header title="首页" showBackBtn={true} />
-            <div className="p-4 space-y-4">
+            <div
+                className="fixed top-0 left-0 right-0 px-4 py-2 bg-background"
+                onClick={() => navigate("/search")}
+            >
+                <div className="relative max-w-md mx-auto">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input 
+                        // 只是在主页面展示搜索框，真正的搜索在专门的搜索页面
+                        readOnly
+                        placeholder="搜索你感兴趣的内容"
+                        className="pl-9 rounded-full cursor-pointer bg-muted"
+                    />
+                </div>
+            </div>
+            <div className="pt-14 p-4 space-y-4">
                 <SlideShow slides={banners}/>
                 <Card>
                     <CardHeader>

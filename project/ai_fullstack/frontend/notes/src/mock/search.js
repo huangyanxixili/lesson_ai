@@ -148,7 +148,30 @@ export default [
         timeout: 200,
         response: (req, res) => {
             // 传输中文或特殊符号，需要编码
-            console.log(req.url, '????????')
+            // console.log(req.url, '????????')
+            // 将字符串URL 解析为结构化URL对象，方便取出URL中各个部分
+            const url = new URL(req.url, 'http://localhost:5173');
+            // console.log(url);
+            // 通过 searchParams（搜索参数）取出用户搜索的keyword（关键词）
+            const keyword = url.searchParams.get('keyword') || "";
+            // console.log(keyword, "???");
+            let filteredPosts = posts;
+            if (keyword) {
+              // 字符串匹配
+              // 将 文章内容 和 用户搜索词 转为小写，方便统一匹配文章（用户体验）
+              const lowerKeyword = keyword.toLowerCase(); // 转成小写
+              filteredPosts = posts.filter(post => 
+                post.title.toLocaleLowerCase().includes(lowerKeyword) || 
+                post.category.toLocaleLowerCase().includes(lowerKeyword)
+              ).map(post => post.title)
+            }
+
+            return {
+              code: 0, // 成功 没用出现任何bug
+              msg: "success",
+              data: filteredPosts,
+              total: filteredPosts.length,
+            }
         }
     }
 ]
