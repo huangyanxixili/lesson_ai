@@ -781,3 +781,18 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
   - 响应式的 debounce 值
   - useEffect 清除函数 实现防抖功能
   - 专一功能
+
+
+### 语义搜索 embedding
+hello == 你好  文本匹配失效，通过**语义相似度**来匹配
+数学问题，向量的概念 在高纬度世界 1536维 图片理解https://static001.geekbang.org/resource/image/32/7a/32db77431433da86d9f818037752bd7a.png?wh=1600x1320
+
+openai 的 embedding 模型 1536维度
+- openai embedding.create() 接口
+- fs/promises 文件模块
+  - readFile
+    JSON.parse 解析JSON字符串为JavaScript对象
+  - writeFile
+    JSON.stringify 转成JSON字符串，写入文件
+- 向量的相似度计算
+
