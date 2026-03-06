@@ -776,3 +776,8 @@ UseGuards 是一个装饰器，用于在控制器或路由处理方法上应用�
     - 基于大模型的语义搜索
       前端 => vue √
       hello == 你好
+- 服务器端开销比较大（防抖）
+- 封装了 useDebounce 防抖hooks
+  - 响应式的 debounce 值
+  - useEffect 清除函数 实现防抖功能
+  - 专一功能
