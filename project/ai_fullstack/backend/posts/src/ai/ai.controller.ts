@@ -1,11 +1,14 @@
 import {
     Controller,
     Post,
+    Get,
+    Query,
     Body,
     Res,
 } from '@nestjs/common';
 import { AIService } from './ai.service';
-import { ChatDto } from './dto/chat.dto'
+import { ChatDto } from './dto/chat.dto';
+import { SearchDto } from './dto/search.dto';
 
 @Controller('ai')
 export class AIController {
@@ -31,5 +34,12 @@ export class AIController {
             console.error(err)
             res.status(500).end();
         }
+    }
+
+    @Get('search')
+    async search(@Query() dto: SearchDto) {
+        const { keyword } = dto;
+        let decoded = decodeURIComponent(keyword);
+        return this.aiService.search(decoded);
     }
 }
