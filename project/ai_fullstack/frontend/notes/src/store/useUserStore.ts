@@ -2,7 +2,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {
-    doLogin
+    doLogin,
+    getAiAvatar,
 } from '@/api/user';
 import type { 
     User, 
@@ -15,12 +16,13 @@ interface UserState {
     user: User | null;
     isLogin: boolean;
     login: (credentials: Credentail) => Promise<void>;
+    aiAvatar: () => Promise<void>;
     logout: () => void;
 }
 
 // 高阶函数 柯里化
 export const useUserStore = create<UserState>()(
-    persist((set) => ({ // state 对象
+    persist((set, get) => ({ // state 对象
         accessToken: null,
         refreshToken: null,
         user: null,
@@ -37,7 +39,18 @@ export const useUserStore = create<UserState>()(
                 isLogin: true
             })
         },
-        logout: () => {
+        aiAvatar: async () => {
+            // coze title + desc 生成应用的logo
+            const name = get().user?.name;
+            const avatar = await getAiAvatar(name);
+            set({
+                user: {
+                    ...get().user,
+                    avatar
+                }
+            })
+        },  
+        logout: () => { 
             set({
                 user: null,
                 isLogin: false,

@@ -8,7 +8,7 @@ import {
     AIMessage,
     SystemMessage 
 } from '@langchain/core/messages';
-import { OpenAIEmbeddings } from '@langchain/openai';
+import { OpenAIEmbeddings, DallEAPIWrapper } from '@langchain/openai';
 import * as fs from 'fs/promises'; // promisify
 import path from 'path';
 
@@ -48,6 +48,7 @@ export class AIService{
     private posts: Post[] = [];
     private chatModule: ChatDeepSeek; // llm 成为service 一个私有属性
     private embedding: OpenAIEmbeddings;
+    private imageGenerator: DallEAPIWrapper;
 
     constructor() {
         this.chatModule = new ChatDeepSeek({
@@ -65,6 +66,12 @@ export class AIService{
                 baseURL: process.env.OPENAI_BASE_URL
             },
             model: 'text-embedding-ada-002'
+        })
+        this.imageGenerator = new DallEAPIWrapper({
+            openAIApiKey: process.env.OPENAI_API_KEY,
+            n: 1,
+            size: '1024x1024',
+            quality: 'standard'
         })
         this.loadPosts();
     }   
@@ -98,7 +105,7 @@ export class AIService{
         }
     }
 
-    async search(keyword: string, topK: number = 5) {
+    async search(keyword: string, topK: number = 3) {
         const vector = await this.embedding.embedQuery(keyword);
         // console.log(vector, '///////');
         const results = this.posts.map(post => ({
@@ -114,4 +121,15 @@ export class AIService{
             data: results
         }
     } 
+
+    async avatar(name: string) {
+        const imgUrl = await this.imageGenerator.invoke(`
+            你是一位头像设计师，
+            根据用户的名字${name}，
+            设计一个专业的头像。
+            设计风格卡通，时尚，好看。    
+        `)
+        console.log(imgUrl);
+        return imgUrl;
+    }
 }
