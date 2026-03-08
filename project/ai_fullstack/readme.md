@@ -796,3 +796,10 @@ openai 的 embedding 模型 1536维度
     JSON.stringify 转成JSON字符串，写入文件
 - 向量的相似度计算
 
+### RAG
+Retrieve（检索） Augument（增强） Generation（生成）
+1. 让 llm 可以去检索一些文档（私有知识库 embedding）
+2. 将检索到的内容（相似度），作为上下文，增强prompt
+3. 交给大模型生成
+
+- rag 界面，类似与chatbot，上传文件

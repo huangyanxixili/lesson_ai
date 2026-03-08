@@ -5,6 +5,7 @@ import {
 import { useUserStore } from '@/store/useUserStore'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useNavigate } from 'react-router-dom';
 import {
     Drawer,
     DrawerClose,
@@ -28,12 +29,13 @@ export default function Mine() {
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleAction = (type: string) => {
+    const handleAction = async (type: string) => {
         setOpen(false);
         if (type === 'ai') {
             setLoading(true);
-            await aiAvatar();
+            const avatar = await aiAvatar();
             setLoading(false);
         }
     }
@@ -111,6 +113,12 @@ export default function Mine() {
                     </div>
                     <div className="flex justify-between items-center py-2 border-b last:border-b-0">
                         <span>AI git 工具</span>
+                        <span className="text-gary-400 text-sm">&gt;</span>
+                    </div>
+                    <div
+                        onClick={() => navigate('/rag')} 
+                        className="flex justify-between items-center py-2 border-b last:border-b-0">
+                        <span>RAG</span>
                         <span className="text-gary-400 text-sm">&gt;</span>
                     </div>
                 </div>
