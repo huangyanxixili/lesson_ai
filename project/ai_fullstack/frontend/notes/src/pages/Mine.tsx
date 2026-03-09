@@ -111,7 +111,10 @@ export default function Mine() {
                         <span>我的订单</span>
                         <span className="text-gary-400 text-sm">&gt;</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b last:border-b-0">
+                    <div
+                        onClick={() => navigate('/git')} 
+                        className="flex justify-between items-center py-2 border-b last:border-b-0"
+                    >
                         <span>AI git 工具</span>
                         <span className="text-gary-400 text-sm">&gt;</span>
                     </div>
