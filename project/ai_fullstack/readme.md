@@ -811,7 +811,12 @@ Retrieve（检索） Augument（增强） Generation（生成）
   新手像专家一样工作
   git commit -m '' 用和本轮开发相关，能够表达功能的描述
   css BEM 国际命名规范
-  大厂规范，Conventional Commits 提交规范
+  大厂规范，Conventional(约定) Commits 提交规范
     - 有描述性
     - 功能性
     - 可读性
+
+- 使用流程 规范化操作
+  - git diff 拿到结果
+  - prompt commit 
+  - git commit -m ""
