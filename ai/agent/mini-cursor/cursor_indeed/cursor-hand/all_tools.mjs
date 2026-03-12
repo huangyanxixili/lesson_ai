@@ -102,6 +102,28 @@ const executeCommanTool = tool(
     }
 )
 
+// 列出目录工具
+const listDirectoryTool = tool(
+    async ({ directoryPath }) => {
+        try {
+            // 读取目录内容
+            const files = await fs.readdir(directoryPath);
+            console.log(`[工具调用] list_directory("${directoryPath}") 成功列出 ${files.length} 个文件`)
+            return `目录内容：\n ${files.map(f => `- ${f}`).join('\n')}`
+        } catch(error) {
+            console.log(`[工具调用] list_directory("${directoryPath}") 失败：${error.message}`);
+            return `列出目录失败：${error.message}`
+        }
+    },
+    {
+        name: 'list_directory',
+        description: '列出指定目录下的所有文件和文件夹',
+        schema: z.object({
+            directoryPath: z.string().describe('目录路径')
+        })
+    }
+)
+
 export {
     readFileTool,
     writeFileTool,
