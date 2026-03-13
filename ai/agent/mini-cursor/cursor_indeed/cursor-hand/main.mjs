@@ -11,7 +11,7 @@ import {
     executeCommanTool,
     listDirectoryTool,
 } from './all_tools.mjs'
-import chalk from 'chalk'; // 彩色输出
+import chalk from 'chalk'; // 彩色输出（重点显示）
 
 const model = new ChatOpenAI({
     modelName: process.env.MODEL_NAME, // 比qwen-coder-turbo 更强大
@@ -60,10 +60,30 @@ async function runAgentWithTools(query, maxIterAtions = 30) { // maxIterAtions�
         `),
         new HumanMessage(query),
     ];
+    
     // 循环是agent 的核心 llm 思考，规划，调整 不断迭代 直到任务完成，更加智能化
     for (let i = 0; i < maxIterAtions; i++) {
-        console.log(chalk.bgGreen('正在等待AI思考...'))
+        console.log(chalk.bgGreen('正在等待AI思考...')) // 背景高亮
+        const response = await modelWithTools.invoke(messages);
+        messages.push(response);
+        // console.log(response);
+        if (!response.tool_calls || response.tool_calls.length === 0) {
+            console.log(`\n AI 最终回复：\n ${response.content}\n`);
+            return response.content;
+        }
+
+        for (const toolCall of response.tool_calls) {
+            const foundTool = tools.find(t => t.name === toolCall.name);
+            if (foundTool) {
+                const toolResult = await foundTool.invoke(toolCall.args);
+                messages.push(new ToolMessage({
+                    content: toolResult,
+                    tool_call_id: toolCall.id
+                }))
+            }
+        }
     }
+    return messages[messages.length - 1].content;
 }
 
 const case1 = `
